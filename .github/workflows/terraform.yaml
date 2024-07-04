@@ -152,7 +152,6 @@ jobs:
 
       - name: Terraform Initialize
         id: init-plan
-        # working-directory: ${{ env.terraformWorkDir }}
         run: |
           terraform init -backend-config="bucket=${{ env.terraformBucket }}" \
                 -backend-config="dynamodb_table=${{ env.terraformDynamo }}" \
@@ -186,23 +185,23 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
 
-  #       - name: Post Plan to GitHub PR
-  #         if: steps.plan.outcome == 'success' && (github.event_name == 'pull_request' || github.ref == 'refs/heads/main')
-  #         uses: mshick/add-pr-comment@v2
-  #         with:
-  #           allow-repeats: true
-  #           repo-token: ${{ secrets.GITHUB_TOKEN }}
-  #           message: |
-  #             ## Terraform Plan
-  #             ### Environment: ${{ github.base_ref }}
-  #             ### Region: us-east-1
-  #             ***Author***: `${{ github.actor }}` ***Action***: `${{ github.event_name }}`
-  #             ***Working Directory***: `${{ env.terraformWorkDir }}`
-  #             ***Workflow***: `${{ github.workflow }}`
-  #             Please review below Terraform plan before accepting merge request:
-  #             ```diff
-  #             ${{ env.PLAN }}
-  #             ```
+      - name: Post Plan to GitHub PR
+        if: steps.plan.outcome == 'success' && (github.event_name == 'pull_request' || github.ref == 'refs/heads/main')
+        uses: mshick/add-pr-comment@v2
+        with:
+          allow-repeats: true
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          message: |
+            ## Terraform Plan
+            ### Environment: ${{ github.base_ref }}
+            ### Region: us-east-1
+            ***Author***: `${{ github.actor }}` ***Action***: `${{ github.event_name }}`
+            ***Working Directory***: `${{ env.terraformWorkDir }}`
+            ***Workflow***: `${{ github.workflow }}`
+            Please review below Terraform plan before accepting merge request:
+            ```diff
+            ${{ env.PLAN }}
+            ```
 
 
   #       - name: Post Plan Failure
