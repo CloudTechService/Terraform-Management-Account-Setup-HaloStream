@@ -65,7 +65,7 @@ jobs:
           # role-duration-seconds: ${{ env.awsIamRoleSessionDuration }}
       - name: Terraform Initialize
         id: init
-        # working-directory: ${{ env.terraformWorkDir }}
+        working-directory: ${{ env.terraformWorkDir }}
         run: |
           echo "name"
 
