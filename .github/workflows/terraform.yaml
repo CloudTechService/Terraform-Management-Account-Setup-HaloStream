@@ -138,19 +138,19 @@ jobs:
   #           "https://github.com/${{ env.terraformModulesGithubOrg }}"
   #         shell: sh
 
-  #       - name: configure aws credentials
-  #         uses: aws-actions/configure-aws-credentials@v2
-  #         with:
-  #           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #           aws-region: ${{ env.awsRegion }}
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.awsRegion }}
         
 
         
-  #       - name: Setup Terraform
-  #         uses: hashicorp/setup-terraform@v2
-  #         with:
-  #           terraform_version: ${{ env.terraformVersion }}
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.terraformVersion }}
 
   #       - name: Terraform Initialize
   #         id: init
