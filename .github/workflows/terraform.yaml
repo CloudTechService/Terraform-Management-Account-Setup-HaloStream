@@ -152,9 +152,8 @@ jobs:
 
       - name: Terraform Initialize
         id: init-plan
-        working-directory: ${{ env.terraformWorkDir }}
+        # working-directory: ${{ env.terraformWorkDir }}
         run: |
-          echo "name"
           terraform init -backend-config="bucket=${{ env.terraformBucket }}" \
                 -backend-config="dynamodb_table=${{ env.terraformDynamo }}" \
                 -backend-config="key=${{ env.terraformS3Key }}" \
