@@ -152,37 +152,42 @@ jobs:
         with:
           terraform_version: ${{ env.terraformVersion }}
 
-  #       - name: Terraform Initialize
-  #         id: init
-  #         run: |
-  #           cd ${{ env.terraformWorkDir }}
-  #           terraform init -backend-config="bucket=${{ env.terraformBucket }}" -backend-config="dynamodb_table=${{ env.terraformDynamo }}" -backend-config="key=${{ env.terraformS3Key}}" -backend-config="region=${{ env.awsRegion }}"
+      - name: Terraform Initialize
+        id: init
+        working-directory: ${{ env.terraformWorkDir }}
+        run: |
+          echo "name"
+          terraform init -backend-config="bucket=${{ env.terraformBucket }}" \
+                -backend-config="dynamodb_table=${{ env.terraformDynamo }}" \
+                -backend-config="key=${{ env.terraformS3Key }}" \
+                -backend-config="region=${{ env.awsRegion }}"
 
-  #       - name: Terraform Plans
-  #         id: plan
-  #         continue-on-error: true
-  #         run: |
-  #           cd ${{ env.terraformWorkDir }}
-  #           terraform plan -no-color -out tf.plan
 
-  #       - name: Upload Terraform Plan File
-  #         if: steps.plan.outcome == 'success' && github.event_name == 'pull_request'
-  #         uses: actions/upload-artifact@v3
-  #         with:
-  #           name: tf.plan
-  #           path: ${{ env.terraformWorkDir }}/tf.plan
-  #           retention-days: 3
+        - name: Terraform Plans
+          id: plan
+          continue-on-error: true
+          run: |
+            cd ${{ env.terraformWorkDir }}
+            terraform plan -no-color -out tf.plan
 
-  #       - name: Terraform Show
-  #         if: steps.plan.outcome == 'success' && (github.event_name == 'pull_request' || github.ref == 'refs/heads/main')
-  #         id: show
-  #         run: |-
-  #           echo '${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}' \
-  #           | sed -E 's/^([[:space:]]+)([-+])/\2\1/g' > /tmp/plan.txt
-  #           PLAN=$(cat /tmp/plan.txt)
-  #           echo "PLAN<<EOF" >> $GITHUB_ENV
-  #           echo "$PLAN" >> $GITHUB_ENV
-  #           echo "EOF" >> $GITHUB_ENV
+        - name: Upload Terraform Plan File
+          if: steps.plan.outcome == 'success' && github.event_name == 'pull_request'
+          uses: actions/upload-artifact@v3
+          with:
+            name: tf.plan
+            path: ${{ env.terraformWorkDir }}/tf.plan
+            retention-days: 3
+
+        - name: Terraform Show
+          if: steps.plan.outcome == 'success' && (github.event_name == 'pull_request' || github.ref == 'refs/heads/main')
+          id: show
+          run: |-
+            echo '${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}' \
+            | sed -E 's/^([[:space:]]+)([-+])/\2\1/g' > /tmp/plan.txt
+            PLAN=$(cat /tmp/plan.txt)
+            echo "PLAN<<EOF" >> $GITHUB_ENV
+            echo "$PLAN" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
 
 
   #       - name: Post Plan to GitHub PR
