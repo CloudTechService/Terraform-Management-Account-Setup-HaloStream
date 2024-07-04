@@ -63,13 +63,13 @@ jobs:
           # role-session-name: OIDCSession
           # aws-region: ${{ env.awsRegion }}
           # role-duration-seconds: ${{ env.awsIamRoleSessionDuration }}
+      
       - name: Terraform Initialize
         id: init
         working-directory: ${{ env.terraformWorkDir }}
         run: |
           echo "name"
-          terraform init 
-
+          terraform init -backend-config="bucket='terraform-tfstate-cloud-tech'" -backend-config="dynamodb_table='surgemail-terraform-backend'" -backend_config="key='state/management.tf'" -backend_config="region='us-east-2'"
 
       # - name: Terraform Format
       # 	run: terraform fmt --check
