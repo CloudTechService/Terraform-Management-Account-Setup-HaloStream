@@ -145,15 +145,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.awsRegion }}
         
-
-        
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: ${{ env.terraformVersion }}
 
       - name: Terraform Initialize
-        id: init
+        id: init-plan
         working-directory: ${{ env.terraformWorkDir }}
         run: |
           echo "name"
@@ -161,7 +159,6 @@ jobs:
                 -backend-config="dynamodb_table=${{ env.terraformDynamo }}" \
                 -backend-config="key=${{ env.terraformS3Key }}" \
                 -backend-config="region=${{ env.awsRegion }}"
-
 
         - name: Terraform Plans
           id: plan
