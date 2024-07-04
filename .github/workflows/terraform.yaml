@@ -204,25 +204,25 @@ jobs:
             ```
 
 
-  #       - name: Post Plan Failure
-  #         if: steps.plan.outcome == 'failure' && (github.event_name == 'pull_request' || github.ref == 'refs/heads/main')
-  #         uses: mshick/add-pr-comment@v1
-  #         with:
-  #           repo-token: ${{ secrets.GITHUB_TOKEN }}
-  #           message: |
-  #             ## Terraform Plan
-  #             ### Environment: ${{ github.base_ref }}
-  #             ### Region: us-east-1
-  #             ***Author***: `${{ github.actor }}` ***Action***: `${{ github.event_name }}`
-  #             ***Working Directory***: `${{ env.terraformWorkDir }}`
-  #             ***Workflow***: `${{ github.workflow }}`
-  #             ```
-  #             ${{ steps.plan.outputs.stderr }}
-  #             ```
+      - name: Post Plan Failure
+        if: steps.plan.outcome == 'failure' && (github.event_name == 'pull_request' || github.ref == 'refs/heads/main')
+        uses: mshick/add-pr-comment@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          message: |
+            ## Terraform Plan
+            ### Environment: ${{ github.base_ref }}
+            ### Region: us-east-1
+            ***Author***: `${{ github.actor }}` ***Action***: `${{ github.event_name }}`
+            ***Working Directory***: `${{ env.terraformWorkDir }}`
+            ***Workflow***: `${{ github.workflow }}`
+            ```
+            ${{ steps.plan.outputs.stderr }}
+            ```
 
 
-          
-  #       - name: Stop pipeline if failed
-  #         if: steps.plan.outcome == 'failure'
-  #         run: exit 1
+        
+      - name: Stop pipeline if failed
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
 
