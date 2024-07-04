@@ -121,15 +121,15 @@ jobs:
   #                                     --pull-request=${{ github.event.pull_request.number }} \
   #                                     --behavior=update
 
-    plan:
-      name: Terraform Plan
-      needs: lint
-      runs-on: ubuntu-20.04
+  plan:
+    name: Terraform Plan
+    needs: lint
+    runs-on: ubuntu-20.04
 
-      steps:
+    steps:
 
-        - name: Check out code
-          uses: actions/checkout@v3
+      - name: Check out code
+        uses: actions/checkout@v3
 
   #       - name: Setup git repo credentials for terraform modules
   #         run: |
