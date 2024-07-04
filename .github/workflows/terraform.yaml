@@ -22,44 +22,47 @@ permissions:
   contents: read
   pull-requests: write
 
-# env:
-#   terraformVersion: 1.9.0
-#   terraformWorkDir: .
+env:
+  terraformVersion: 1.9.0
+  terraformWorkDir: .
 #   terraformS3Key: ${{ github.repository}}/${{ github.ref_name}}
 #   terraformModulesGithubOrg: ${{ github.repository_owner}}
 #   terraformBucket: terraform-module-state-files
 #   terraformDynamo: terraform-module-state-files
 
-#   awsRegion: us-east-1
+  awsRegion: us-east-1
 #   githubToken: ${{ secrets.CLOUD_TECH_GITHUB_TOKEN }}
 #   awsIamRoleSessionDuration: 7200
 
-# jobs:
-#   lint:
-# 	name: Lint
-# 	runs-on: ubuntu-20.04
+jobs:
+  lint:
+	name: Lint
+	runs-on: ubuntu-20.04
 
-# 	steps:
+	steps:
 
-#   	- name: Check out code
-#     	uses: actions/checkout@v3
+  	- name: Check out code
+    	uses: actions/checkout@v3
       	
-#     - name: Install JQ Tool
-#     	uses: mbround18/install-jq@v1
+    - name: Install JQ Tool
+    	uses: mbround18/install-jq@v1
 
-#   	- name: Setup Terraform
-#     	uses: hashicorp/setup-terraform@v2
-#     	with:
-#       	terraform_version: ${{ env.terraformVersion }}
-#       	terraform_wrapper: false
+  	- name: Setup Terraform
+    	uses: hashicorp/setup-terraform@v2
+    	with:
+      	terraform_version: ${{ env.terraformVersion }}
+      	terraform_wrapper: false
 
-#     - name: configure aws credentials
-#     	uses: aws-actions/configure-aws-credentials@v2
-#     	with:
-#       	role-to-assume: arn:aws:iam::${{ secrets.ADEX_POC }}:role/github_oidc
-#       	role-session-name: OIDCSession
-#       	aws-region: ${{ env.awsRegion }}
-#       	role-duration-seconds: ${{ env.awsIamRoleSessionDuration }}
+    - name: configure aws credentials
+    	uses: aws-actions/configure-aws-credentials@v2
+    	with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.awsRegion }}
+      	# role-to-assume: arn:aws:iam::${{ secrets.ADEX_POC }}:role/github_oidc
+      	# role-session-name: OIDCSession
+      	# aws-region: ${{ env.awsRegion }}
+      	# role-duration-seconds: ${{ env.awsIamRoleSessionDuration }}
 
 #     - name: Terraform Initialize
 #     	id: init
