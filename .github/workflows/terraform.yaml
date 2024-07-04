@@ -69,8 +69,9 @@ jobs:
         working-directory: ${{ env.terraformWorkDir }}
 
       	run: |
-        	#  cd ${{ env.terraformWorkDir }}
-        	terraform init 
+          echo "name"
+        	# cd ${{ env.terraformWorkDir }}
+        	# terraform init 
           # -backend-config="bucket='terraform-tfstate-cloud-tech'" -backend-config="dynamodb_table='surgemail-terraform-backend'" -backend_config="key='state/management.tf'" -backend_config="region='us-east-2'"
           #  -backend-config="bucket=${{ env.terraformBucket }}" -backend-config="dynamodb_table=${{ env.terraformDynamo }}" -backend-config="key=${{ env.terraformS3Key}}" -backend-config="region=${{ env.awsRegion }}"
 
