@@ -78,11 +78,8 @@ jobs:
         run: terraform fmt --check 
           
 
-      - name: Terraform Validate
-        id: terraform validation 
-      	run: |
-        	cd ${{ env.terraformWorkDir }}
-        	terraform validate
+      - name: Terraform Validate 
+      	run: terraform validate
       
   #   	- name: Setup Infracost
   #     	uses: infracost/actions/setup@v2
