@@ -88,10 +88,10 @@ jobs:
   #     	with:
   #       	api-key: ${{ secrets.INFRACOST_API_KEY }}
 
-      - name: Checkout base branch
-      	uses: actions/checkout@v3
-      	with:
-        	ref: '${{ github.event.pull_request.base.ref }}'
+      # - name: Checkout base branch
+      # 	uses: actions/checkout@v3
+      # 	with:
+      #   	ref: '${{ github.event.pull_request.base.ref }}'
 
   #     # Generate Infracost JSON file as the baseline.
   #     - name: Generate Infracost cost estimate baseline
@@ -121,15 +121,15 @@ jobs:
   #                                     --pull-request=${{ github.event.pull_request.number }} \
   #                                     --behavior=update
 
-  #   plan:
-  #     name: Terraform Plan
-  #     needs: lint
-  #     runs-on: ubuntu-20.04
+    plan:
+      name: Terraform Plan
+      needs: lint
+      runs-on: ubuntu-20.04
 
-  #     steps:
+      steps:
 
-  #       - name: Check out code
-  #         uses: actions/checkout@v3
+        - name: Check out code
+          uses: actions/checkout@v3
 
   #       - name: Setup git repo credentials for terraform modules
   #         run: |
