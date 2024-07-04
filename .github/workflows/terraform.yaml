@@ -69,7 +69,7 @@ jobs:
         working-directory: ${{ env.terraformWorkDir }}
         run: |
           echo "name"
-          terraform init -backend-config="bucket='terraform-tfstate-cloud-tech'" -backend-config="dynamodb_table='surgemail-terraform-backend'" -backend_config="key='state/management.tf'" -backend_config="region='us-east-2'"
+          terraform init -backend-config="bucket=terraform-tfstate-cloud-tech" -backend-config="dynamodb_table=surgemail-terraform-backend" -backend_config="key=state/management.tf" -backend_config="region=us-east-2"
 
       # - name: Terraform Format
       # 	run: terraform fmt --check
