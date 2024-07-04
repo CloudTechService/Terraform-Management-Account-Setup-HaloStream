@@ -75,6 +75,7 @@ jobs:
                 -backend-config="region=${{ env.awsRegion }}"
 
       - name: Terraform Format
+        working-directory: ${{ env.terraformWorkDir }}
       	run: terraform fmt --check
 
       - name: Terraform Validate
