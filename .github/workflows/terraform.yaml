@@ -79,7 +79,9 @@ jobs:
           
 
       - name: Terraform Validate 
-      	run: terraform validate
+        run: |
+          cd ${{ env.terraformWorkDir }}
+          terraform validate
       
   #   	- name: Setup Infracost
   #     	uses: infracost/actions/setup@v2
