@@ -75,10 +75,12 @@ jobs:
                 -backend-config="region=${{ env.awsRegion }}"
 
       - name: Terraform Format
+        id: fmt check
         working-directory: ${{ env.terraformWorkDir }}
       	run: terraform fmt --check
 
       - name: Terraform Validate
+        id: terraform validation 
       	run: |
         	cd ${{ env.terraformWorkDir }}
         	terraform validate
