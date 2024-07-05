@@ -14,5 +14,7 @@ module "vpc" {
     Terraform   = "true"
     Environment = "dev"
     Owner       = "DevOps-Sakshi"
+    FinOps      = "true"
+
   }
 }
