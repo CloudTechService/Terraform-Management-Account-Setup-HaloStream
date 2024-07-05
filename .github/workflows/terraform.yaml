@@ -99,26 +99,35 @@ jobs:
                               --format=json \
                               --out-file=/tmp/infracost-base.json
 
-      # Checkout the current PR branch so we can create a diff.
-      - name: Checkout PR branch
-        uses: actions/checkout@v4
-
-            # Generate an Infracost diff and save it to a JSON file.
-      - name: Generate Infracost diff
-        run: |
-          infracost diff --path=. \
-                          --format=json \
-                          --compare-to=/tmp/infracost-base.json \
-                          --out-file=/tmp/infracost.json
-
 
       - name: Post Infracost comment
         run: |
-            infracost comment github --path=/tmp/infracost.json \
+            infracost comment github --path=/tmp/infracost-base.json \
                                       --repo=$GITHUB_REPOSITORY \
                                       --github-token=${{ github.token }} \
                                       --pull-request=${{ github.event.pull_request.number }} \
                                       --behavior=update
+
+      # # Checkout the current PR branch so we can create a diff.
+      # - name: Checkout PR branch
+      #   uses: actions/checkout@v4
+
+      #       # Generate an Infracost diff and save it to a JSON file.
+      # - name: Generate Infracost diff
+      #   run: |
+      #     infracost diff --path=. \
+      #                     --format=json \
+      #                     --compare-to=/tmp/infracost-base.json \
+      #                     --out-file=/tmp/infracost.json
+
+
+      # - name: Post Infracost comment
+      #   run: |
+      #       infracost comment github --path=/tmp/infracost.json \
+      #                                 --repo=$GITHUB_REPOSITORY \
+      #                                 --github-token=${{ github.token }} \
+      #                                 --pull-request=${{ github.event.pull_request.number }} \
+      #                                 --behavior=update
 
   plan:
     name: Terraform Plan
