@@ -105,7 +105,7 @@ jobs:
             infracost comment github --path=/tmp/infracost-base.json \
                                       --repo=$GITHUB_REPOSITORY \
                                       --github-token=${{ github.token }} \
-                                      --pull-request=${{ github.event.pull_request.number }} \
+                                      # --pull-request=${{ github.event.pull_request.number }} \
                                       --behavior=update
 
       # # Checkout the current PR branch so we can create a diff.
