@@ -80,9 +80,7 @@ jobs:
 
       - name: Terraform Validate 
         run: terraform validate
-        # |
-          # cd ${{ env.terraformWorkDir }}
-          # terraform validate
+  
       - name: Setup Infracost
         uses: infracost/actions/setup@v2
         with:
@@ -94,12 +92,12 @@ jobs:
       # 	with:
       #   	ref: '${{ github.event.pull_request.base.ref }}'
 
-  #     # Generate Infracost JSON file as the baseline.
-  #     - name: Generate Infracost cost estimate baseline
-  #       run: |
-  #         infracost breakdown --path=. \
-  #                             --format=json \
-  #                             --out-file=/tmp/infracost-base.json
+      # Generate Infracost JSON file as the baseline.
+      - name: Generate Infracost cost estimate baseline
+        run: |
+          infracost breakdown --path=. \
+                              --format=json \
+                              --out-file=/tmp/infracost-base.json
 
   #     # Checkout the current PR branch so we can create a diff.
   #     - name: Checkout PR branch
