@@ -80,6 +80,13 @@ jobs:
 
       - name: Terraform Validate 
         run: terraform validate
+
+      - name: Terraform plan out
+        run: terraform plan -out tfplan.binary
+
+
+      - name: Terraform show
+        run: terraform show -json tfplan.binary > /tmp/plan.json
   
       - name: Setup Infracost
         uses: infracost/actions/setup@v2
@@ -95,7 +102,7 @@ jobs:
       # Generate Infracost JSON file as the baseline.
       - name: Generate Infracost cost estimate baseline
         run: |
-          infracost breakdown --path=. \
+          infracost breakdown --path=/tmp/plan.json \
                               --format=json \
                               --out-file=/tmp/infracost-base.json
 
