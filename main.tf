@@ -55,7 +55,7 @@ module "aws-iam-identity-center" {
       email            = "bimal@cloudtechservice.com"
     },
     sakshi : {
-      group_membership = ["QA", "Lead"]
+      group_membership = ["DevOps"]
       user_name        = "sakshi"
       given_name       = "sakshi"
       family_name      = "chaudhary"
@@ -138,7 +138,10 @@ module "aws-iam-identity-center" {
       permission_sets = ["AdministratorAccess", "ViewOnlyAccess"] # permissions the user/group will have in the account(s)
       account_ids = [                                             # account(s) the group will have access to. Permissions they will have in account are above line
         "992382399471",                                           // replace with your desired account id
-        "654654317992",                                           // replace with your desired account id
+        "654654317992",
+        "551804445178",
+        "905418173674",
+        // replace with your desired account id
       ]
     },
     Lead : {
@@ -148,6 +151,7 @@ module "aws-iam-identity-center" {
       permission_sets = ["ViewOnlyAccess"]
       account_ids = [
         "992382399471",
+        "551804445178",
       ]
     },
   }
